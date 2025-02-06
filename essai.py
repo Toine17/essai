@@ -16,7 +16,7 @@ def load_users():
     return users
 
 users_df = load_users()
-st.dataframe(users_df)
+
 
 GITHUB_USERNAME = 'Toine17'
 GITHUB_TOKEN = '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'
@@ -83,7 +83,7 @@ if st.button("Inscription"):
                 save_user(new_user)
             else : 
                 st.error("Tous les champs doivent être remplis.")
-                
+
 
 credentials = {
     "usernames": {
@@ -146,6 +146,24 @@ if st.session_state["authentication_status"]:
 
     
 
+if st.button("Inscription"):
+    with st.form("register_form"):
+        new_name = st.text_input("Nom d'utilisateur")
+        new_password = st.text_input("Mot de passe", type="password")
+
+        new_user = {
+                        "name": new_name,
+                        "password": hash_password(new_password),
+                        "email": "new_email",
+                        "failed_login_attempts": 0,
+                        "role": "user"
+                    }
+    
+        if st.form_submit_button("Ajouter"):
+            if new_name and new_password:
+                save_user(new_user)
+            else : 
+                st.error("Tous les champs doivent être remplis.")
 
 
 
