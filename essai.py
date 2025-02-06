@@ -130,7 +130,7 @@ if st.session_state["authentication_status"]:
 
     
 
-if st.button("Inscription"):
+if st.sidebar("Inscription"):
     with st.form("register_form"):
         new_name = st.text_input("Nom d'utilisateur")
         new_password = st.text_input("Mot de passe", type="password")
