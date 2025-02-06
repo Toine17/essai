@@ -65,6 +65,8 @@ def hash_password(password):
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode(), salt).decode()
 
+if 'registration_status' not in st.session_state:
+    st.session_state.registration_status = None
 
 
 credentials = {
@@ -128,34 +130,28 @@ if st.session_state["authentication_status"]:
 
     
 
-if 'registration_status' not in st.session_state:
-    st.session_state.registration_status = None
-
-# Bouton "Ajout utilisateur"
-if st.button("Ajout utilisateur"):
-    with st.form("register_form"):
+#if st.button("Inscription"):
+with st.form("register_form"):
         new_name = st.text_input("Nom d'utilisateur")
         new_password = st.text_input("Mot de passe", type="password")
-        confirm_password = st.text_input("Confirmer le mot de passe", type="password")
 
-        if new_password != confirm_password:
-            st.warning("Les mots de passe ne correspondent pas.")
-
-        submit_button = st.form_submit_button("Ajouter")
-
-        if submit_button:
-            if new_name and new_password and new_password == confirm_password:
-                new_user = {
-                    "name": new_name,
-                    "password": hash_password(new_password),
-                    "email": "new_email",  # Vous pouvez ajouter un champ pour l'email
-                    "failed_login_attempts": 0,
-                    "role": "user"
-                }
+        new_user = {
+                        "name": new_name,
+                        "password": hash_password(new_password),
+                        "email": "new_email",
+                        "failed_login_attempts": 0,
+                        "role": "user"
+                    }
+    
+        if st.form_submit_button("Ajouter"):
+            if new_name and new_password:
                 save_user(new_user)
                 st.session_state.registration_status = "Utilisateur ajouté avec succès."
-            else:
-                st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
+            else : 
+                 st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
+
+if st.session_state.registration_status:
+        st.success(st.session_state.registration_status)
 
             
 ##########################################################################################################################
