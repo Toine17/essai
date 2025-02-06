@@ -130,8 +130,8 @@ if st.session_state["authentication_status"]:
 
     
 
-#if st.button("Inscription"):
-with st.form("register_form"):
+if st.button("Inscription"):
+    with st.form("register_form"):
         new_name = st.text_input("Nom d'utilisateur")
         new_password = st.text_input("Mot de passe", type="password")
 
@@ -150,7 +150,7 @@ with st.form("register_form"):
             else : 
                  st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
 
-if st.session_state.registration_status:
+    if st.session_state.registration_status:
         st.success(st.session_state.registration_status)
 
             
