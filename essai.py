@@ -150,7 +150,7 @@ if st.button("Inscription"):
             else : 
                  st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
 
-    if st.session_state.registration_status:
+if st.session_state.registration_status:
         st.success(st.session_state.registration_status)
 
             
