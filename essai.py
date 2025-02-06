@@ -125,6 +125,7 @@ elif st.session_state.get("authentication_status") is False:
 elif st.session_state.get("authentication_status") is None:
     st.warning('Les champs username et mot de passe doivent être remplis')
 
+if not st.session_state["authentication_status"]:
     with st.sidebar.form("register_form"):
         st.subheader("Inscription")
         new_name = st.text_input("Nom d'utilisateur")
