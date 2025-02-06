@@ -88,6 +88,30 @@ authenticator = stauth.Authenticate(
     30,  # Le nombre de jours avant que le cookie expire
 )
 
+with st.sidebar.form("register_form"):
+    st.subheader("Inscription")
+    new_name = st.text_input("Nom d'utilisateur")
+    new_password = st.text_input("Mot de passe", type="password")
+
+        
+    
+    if st.form_submit_button("Ajouter"):
+            if new_name and new_password:
+                new_user = {
+                        "name": new_name,
+                        "password": hash_password(new_password),
+                        "email": "new_email",
+                        "failed_login_attempts": 0,
+                        "role": "user"
+                    }
+                save_user(new_user)
+                st.session_state.registration_status = "Utilisateur ajouté avec succès."
+            else : 
+                 st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
+
+    if st.session_state.registration_status:
+        st.success(st.session_state.registration_status)
+
 authenticator.login()
 
 # Si l'utilisateur est authentifié
@@ -124,29 +148,6 @@ elif st.session_state.get("authentication_status") is None:
     st.warning('Les champs username et mot de passe doivent être remplis')
 
 # Formulaire d'inscription dans la barre latérale
-with st.sidebar.form("register_form"):
-    st.subheader("Inscription")
-    new_name = st.text_input("Nom d'utilisateur")
-    new_password = st.text_input("Mot de passe", type="password")
-
-        
-    
-    if st.form_submit_button("Ajouter"):
-            if new_name and new_password:
-                new_user = {
-                        "name": new_name,
-                        "password": hash_password(new_password),
-                        "email": "new_email",
-                        "failed_login_attempts": 0,
-                        "role": "user"
-                    }
-                save_user(new_user)
-                st.session_state.registration_status = "Utilisateur ajouté avec succès."
-            else : 
-                 st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
-
-    if st.session_state.registration_status:
-        st.success(st.session_state.registration_status)
 
             
 ##########################################################################################################################
