@@ -130,8 +130,8 @@ if st.session_state["authentication_status"]:
 
     
 
-if st.button("Inscription"):
-    with st.form("register_form"):
+#if st.button("Inscription"):
+with st.form("register_form"):
         new_name = st.text_input("Nom d'utilisateur")
         new_password = st.text_input("Mot de passe", type="password")
 
@@ -161,4 +161,4 @@ elif st.session_state.get("authentication_status") is False:
     st.error("L'username ou le mot de passe est incorrect")
 elif st.session_state.get("authentication_status") is None:
     st.warning('Les champs username et mot de passe doivent être remplis')
-    st.write("Pour te connecter en username entre ton prénom avec majuscule et accent exemple : Antoine et en mot de passe ton prénom en minuscule sans accent exemple : antoine")
+    
