@@ -65,7 +65,8 @@ def hash_password(password):
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode(), salt).decode()
 
-
+if 'registration_status' not in st.session_state:
+    st.session_state.registration_status = None
 
 
 credentials = {
@@ -145,10 +146,12 @@ if st.button("Inscription"):
         if st.form_submit_button("Ajouter"):
             if new_name and new_password:
                 save_user(new_user)
+                st.session_state.registration_status = "Utilisateur ajouté avec succès."
             else : 
-                st.error("Tous les champs doivent être remplis.")
+                 st.session_state.registration_status = "Tous les champs doivent être remplis correctement."
 
-
+    if st.session_state.registration_status:
+        st.success(st.session_state.registration_status)
 
             
 ##########################################################################################################################
