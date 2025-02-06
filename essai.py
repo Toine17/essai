@@ -65,24 +65,7 @@ def hash_password(password):
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode(), salt).decode()
 
-if st.button("Inscription"):
-    with st.form("register_form"):
-        new_name = st.text_input("Nom d'utilisateur")
-        new_password = st.text_input("Mot de passe", type="password")
 
-        new_user = {
-                        "name": new_name,
-                        "password": hash_password(new_password),
-                        "email": "new_email",
-                        "failed_login_attempts": 0,
-                        "role": "user"
-                    }
-    
-        if st.form_submit_button("Ajouter"):
-            if new_name and new_password:
-                save_user(new_user)
-            else : 
-                st.error("Tous les champs doivent être remplis.")
 
 
 credentials = {
